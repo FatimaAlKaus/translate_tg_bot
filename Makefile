@@ -23,7 +23,3 @@ delete-image:
 .PHONY: fmt
 fmt: ## run "go fmt" on all Go packages
 	@go fmt $(PACKAGES)
-
-.PHONY: lint
-lint: ## run golint on all Go package
-	@golint $(PACKAGES)
