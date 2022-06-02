@@ -1,7 +1,13 @@
+PACKAGES := $(shell go list ./... | grep -v /vendor/)
+
 .PHONY: run
 run:
 	go run cmd/server/main.go
 
+.PHONY: build
+build:
+	go build -o bin/server cmd/server/main.go
+ 
 .PHONY: docker-build
 docker-build:
 	@docker build -t tg_translate_bot .
@@ -13,3 +19,11 @@ docker-run:
 .PHONY: delete-image
 delete-image:
 	@docker rmi tg_translate_bot
+
+.PHONY: fmt
+fmt: ## run "go fmt" on all Go packages
+	@go fmt $(PACKAGES)
+
+.PHONY: lint
+lint: ## run golint on all Go package
+	@golint $(PACKAGES)
