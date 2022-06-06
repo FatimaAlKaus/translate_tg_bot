@@ -10,7 +10,7 @@ build:
  
 .PHONY: docker-build
 docker-build:
-	@docker build -t tg_translate_bot .
+	@docker build -t tg_translate_bot --no-cache .
 
 .PHONY: docker-run
 docker-run: 
