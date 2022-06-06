@@ -22,7 +22,9 @@ jobs:
           go mod verify
           
       - name: Create config file
-        run: touch config/dev.yml
+        run: |
+          mkdir config
+          touch config/dev.yml
         
       - name: Write keys
         run: |
