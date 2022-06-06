@@ -1,5 +1,9 @@
 name: build
 on: [push, pull_request]
+
+env:
+  CONTAINER_NAME: "tg_bot"
+
 jobs:
 
   build:
@@ -56,5 +60,20 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        script: whoami
+        envs: CONTAINER_NAME
+        script: |
+            # Login into Docker Hub
+            docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCES_TOKEN }}
+            # Stop running container
+            docker stop $(echo $CONTAINER_NAME)
+            # Remove old container
+            docker rm $(echo $CONTAINER_NAME)
+            # Pull new image
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/telegram_bot:latest
+            # Run a new container from a new image
+            docker run -d \
+            --restart always \
+            --publish 8080:80 \
+            --name $(echo $CONTAINER_NAME) \
+            ${{ secrets.DOCKER_HUB_USERNAME }}/telegram_bot:latest
     
