@@ -20,7 +20,15 @@ jobs:
         run: |
           go mod download
           go mod verify
-
+          
+      - name: Create config file
+        run: touch config/dev.yml
+        
+      - name: Write keys
+        run: |
+          echo "tg_api_key: $(echo {{ secrets.TELEGRAM_API_KEY }})" >> config/dev.yml
+          echo "rapid_api_key: $(echo {{ secrets.RAPID_API_KEY }})" >> config/dev.yml
+        
       - name: Build
         run: make docker-build
         
