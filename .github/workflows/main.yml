@@ -32,8 +32,8 @@ jobs:
         
       - name: Write keys
         run: |
-          echo "tg_api_key: $(echo {{ secrets.TELEGRAM_API_KEY }})" >> config/dev.yml
-          echo "rapid_api_key: $(echo {{ secrets.RAPID_API_KEY }})" >> config/dev.yml
+          echo "tg_api_key: $(${{ secrets.TELEGRAM_API_KEY }})" >> config/dev.yml
+          echo "rapid_api_key: $(${{ secrets.RAPID_API_KEY }})" >> config/dev.yml
         
       - name: Build
         run: |
