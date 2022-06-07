@@ -30,10 +30,10 @@ func (bot *Bot) Listen(logger *log.Logger) {
 				}
 				logger.Printf(*resp)
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, *resp)
+				msg.ReplyToMessageID = update.Message.MessageID
 
 				bot.bot.Send(msg)
 			}()
-			// go handle(update)
 		}
 	}
 }
