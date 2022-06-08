@@ -51,6 +51,6 @@ func New(cfg config.Config, updateTimeOut int, debug bool) (*Bot, error) {
 		debug:         debug,
 		updateTimeOut: updateTimeOut,
 		updateConfig:  &u,
-		translator:    translator.NewGoogleTranslator(cfg.RAPID_API_KEY),
+		translator:    translator.NewMeMemoryTranslator(cfg.RAPID_API_KEY),
 	}, nil
 }
